@@ -1,5 +1,7 @@
 # QuotaTally
 
+[![CI](https://github.com/tozegovic/quotatally-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/tozegovic/quotatally-cli/actions/workflows/ci.yml)
+
 Cross-client AI cost attribution from local session logs.
 
 **Answers the question:** *"Why did my Claude Max quota drop 15% this morning?"*
@@ -37,14 +39,15 @@ Prints a markdown report with:
 
 ## Status
 
-Phase 1 — OSS daemon scaffold. Follows the [build spec](https://github.com/tozegovic/quotatally/blob/main/SPEC.md).
+Phase 1 — OSS daemon.
 
-- Claude Code JSONL parsing
-- Codex CLI parsing (stubbed)
-- Cursor parsing (Phase 3)
-- Local SQLite persistence (next)
-- Watch-mode daemon (next)
-- Hosted dashboard (Phase 2)
+- [x] Claude Code JSONL parsing
+- [x] Codex CLI parsing
+- [x] Local SQLite persistence (`user_id`/`team_id` day-1, idempotent ingest keyed on uuid)
+- [x] Watch-mode daemon (`quotatally watch`)
+- [ ] OpenAI pricing figures (placeholder zeros for now)
+- [ ] Cursor parsing (Phase 3)
+- [ ] Hosted dashboard (Phase 2)
 
 ## License
 
