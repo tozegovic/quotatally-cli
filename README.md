@@ -45,7 +45,7 @@ Phase 1 — OSS daemon.
 - [x] Codex CLI parsing
 - [x] Local SQLite persistence (`user_id`/`team_id` day-1, idempotent ingest keyed on uuid)
 - [x] Watch-mode daemon (`quotatally watch`)
-- [ ] OpenAI pricing figures (placeholder zeros for now)
+- [x] OpenAI pricing figures
 - [ ] Cursor parsing (Phase 3)
 - [ ] Hosted dashboard (Phase 2)
 
