@@ -1,4 +1,4 @@
-from quotatally.pricing import DEFAULT, cost_of, resolve, ANTHROPIC
+from quotatally.pricing import DEFAULT, cost_of, resolve, ANTHROPIC, OPENAI
 
 
 def test_resolve_known_model():
@@ -25,3 +25,22 @@ def test_cost_of_opus():
 
 def test_cost_of_empty_usage_is_zero():
     assert cost_of({}, "claude-opus-4-7") == 0.0
+
+
+def test_openai_resolve_picks_specific_over_prefix():
+    # gpt-5.4-mini must NOT fall through to gpt-5.4 pricing.
+    assert resolve("gpt-5.4-mini") is OPENAI["gpt-5.4-mini"]
+    assert resolve("gpt-5.4") is OPENAI["gpt-5.4"]
+    assert resolve("gpt-5.2") is OPENAI["gpt-5.2"]
+    assert resolve("gpt-5.2-codex") is OPENAI["gpt-5.2-codex"]
+
+
+def test_cost_of_gpt_5_4_mini():
+    usage = {
+        "input_tokens": 1_000_000,
+        "output_tokens": 1_000_000,
+        "cache_read_input_tokens": 1_000_000,
+        "cache_creation_input_tokens": 0,
+    }
+    # 0.75 + 4.50 + 0.075 + 0 = 5.325
+    assert cost_of(usage, "gpt-5.4-mini") == 5.325

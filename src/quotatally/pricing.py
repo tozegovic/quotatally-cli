@@ -23,14 +23,19 @@ ANTHROPIC = {
     "claude-haiku-4-5":  Pricing(0.80, 4.00, 0.08, 1.00),
 }
 
-# OpenAI pricing is a placeholder — populate with verified figures from
-# openai.com/pricing before shipping. Zeros are deliberate so users can see
-# "this model needs pricing configured" rather than get silently-wrong
-# Sonnet-rate numbers via the DEFAULT fallback.
+# OpenAI pricing, verified against developers.openai.com/api/docs/pricing
+# and platform.openai.com/docs/models/gpt-5.2 (April 2026).
+# OpenAI prompt-caching has no separate "write" rate — cache creation is
+# billed at the regular input rate, so cache_write=0 here (cache_creation
+# tokens are always 0 in our Codex parser output anyway).
+# IMPORTANT: order matters — `resolve()` does a substring match, so the more
+# specific keys (gpt-5.4-mini, gpt-5.2-codex) must come before less specific
+# prefixes (gpt-5.4, gpt-5.2).
 OPENAI = {
-    "gpt-5.4": Pricing(0.0, 0.0, 0.0, 0.0),
-    "gpt-5.4-mini": Pricing(0.0, 0.0, 0.0, 0.0),
-    "gpt-5.2": Pricing(0.0, 0.0, 0.0, 0.0),
+    "gpt-5.4-mini": Pricing(0.75, 4.50, 0.075, 0.0),
+    "gpt-5.4":      Pricing(2.50, 15.00, 0.25, 0.0),
+    "gpt-5.2-codex": Pricing(1.75, 14.00, 0.175, 0.0),  # assumed same as gpt-5.2
+    "gpt-5.2":       Pricing(1.75, 14.00, 0.175, 0.0),  # scheduled for retirement 2026-06-05
 }
 
 ALL = {**ANTHROPIC, **OPENAI}
